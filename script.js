@@ -1,55 +1,37 @@
-// Lista de canciones de Metallica
-const songs = [
-  { name: "Enter Sandman", wins: 0, losses: 0 },
-  { name: "Master of Puppets", wins: 0, losses: 0 },
-  { name: "One", wins: 0, losses: 0 },
-  { name: "Nothing Else Matters", wins: 0, losses: 0 },
-  { name: "Seek & Destroy", wins: 0, losses: 0 },
-  { name: "Fade to Black", wins: 0, losses: 0 },
-  { name: "The Unforgiven", wins: 0, losses: 0 },
-  { name: "For Whom the Bell Tolls", wins: 0, losses: 0 }
-];
-
-let currentPair = [];
-
-// Elegir dos canciones al azar
-function pickSongs() {
-  const idx1 = Math.floor(Math.random() * songs.length);
-  let idx2;
-  do {
-    idx2 = Math.floor(Math.random() * songs.length);
-  } while (idx2 === idx1);
-
-  currentPair = [idx1, idx2];
-  document.getElementById("song1").textContent = songs[idx1].name;
-  document.getElementById("song2").textContent = songs[idx2].name;
+/* Paleta blanco y negro */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #ffffff; /* fondo blanco */
+  color: #000000; /* texto negro */
 }
 
-// Actualizar ranking
-function updateRanking() {
-  const rankingList = document.getElementById("rankingList");
-  rankingList.innerHTML = "";
-  const sorted = [...songs].sort((a, b) => b.wins - a.wins);
-  sorted.forEach(song => {
-    const li = document.createElement("li");
-    li.textContent = `${song.name} (Ganadas: ${song.wins}, Perdidas: ${song.losses})`;
-    rankingList.appendChild(li);
-  });
+button {
+  padding: 15px 30px;
+  margin: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #000000; /* botones negros */
+  color: #ffffff; /* texto blanco */
+  border: none;
+  border-radius: 5px;
 }
 
-// Registrar elección del usuario
-function vote(winnerIndex) {
-  const loserIndex = currentPair.find(idx => idx !== winnerIndex);
-  songs[winnerIndex].wins++;
-  songs[loserIndex].losses++;
-  updateRanking();
-  pickSongs();
+button:hover {
+  background-color: #333333; /* gris oscuro al pasar el mouse */
 }
 
-// Eventos de clic
-document.getElementById("song1").addEventListener("click", () => vote(currentPair[0]));
-document.getElementById("song2").addEventListener("click", () => vote(currentPair[1]));
+#comparison span {
+  font-size: 24px;
+  margin: 0 15px;
+}
 
-// Inicialización
-pickSongs();
-updateRanking();
+#ranking {
+  margin-top: 40px;
+}
+
+ol {
+  text-align: left;
+  display: inline-block;
+  padding-left: 20px;
+}
